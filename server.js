@@ -32,16 +32,13 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
+// API routes
+const usersApiRoutes = require("./routes/users-api");
+const mapsApiRoutes = require("./routes/maps-api");
 
 // Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
-// Note: mount other resources here, using the same pattern above
-
+app.use("/api/users", usersApiRoutes(db));
+app.use("/api/maps", mapsApiRoutes(db));
 
 // Home page
 // Warning: avoid creating more routes in this file!
