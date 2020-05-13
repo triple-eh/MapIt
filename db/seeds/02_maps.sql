@@ -1,0 +1,17 @@
+INSERT INTO maps (name, description, created_by) VALUES ('Map 1','desc 1',1);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 2','desc 2',1);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 3','desc 3',2);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 4','desc 4',2);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 5','desc 5',3);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 6','desc 6',3);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 7','desc 7',4);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 8','desc 8',4);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 9','desc 9',5);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 10','desc 10',5);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 11','desc 11',6);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 12','desc 12',6);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 13','desc 13',6);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 14','desc 14',1);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 15','desc 15',2);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 16','desc 16',3);
+INSERT INTO maps (name, description, created_by) VALUES ('Map 17','desc 17',4);
