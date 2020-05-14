@@ -35,10 +35,12 @@ app.use(express.static("public"));
 // API routes
 const usersApiRoutes = require("./routes/users-api");
 const mapsApiRoutes = require("./routes/maps-api");
+const locationsApiRoutes = require("./routes/locations-api");
 
 // Mount all resource routes
 app.use("/api/users", usersApiRoutes(db));
 app.use("/api/maps", mapsApiRoutes(db));
+app.use("/api/locations", locationsApiRoutes(db));
 
 // Home page
 // Warning: avoid creating more routes in this file!

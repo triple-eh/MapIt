@@ -1,5 +1,5 @@
 /*
- * All routes for api/maps are defined here
+ * All routes for api/locations are defined here
  */
 
 const express = require('express');
@@ -7,12 +7,10 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM maps`;
-    console.log(query);
-    db.query(query)
+    db.query(`SELECT * FROM locations;`)
       .then(data => {
-        const maps = data.rows;
-        res.json({ maps });
+        const locations = data.rows;
+        res.json({ locations });
       })
       .catch(err => {
         res
@@ -21,13 +19,13 @@ module.exports = (db) => {
       });
   });
   router.get("/:id", (req, res) => {
-    let query = `SELECT * from maps WHERE id=$1`;
+    let query = `SELECT * from locations WHERE id=$1`;
     let params = [req.params.id];
     console.log(query, params);
     db.query(query, params)
       .then(data => {
-        const map = data.rows[0];
-        res.json(map);
+        const location = data.rows[0];
+        res.json(location);
       })
       .catch(err => {
         res
@@ -35,8 +33,8 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-  router.get("/:id/locations", (req, res) => {
-    let query = `SELECT * from locations where map_id = $1`;
+  router.get("/users/:id", (req, res) => {
+    let query = `SELECT * from locations where created_by = $1`;
     let params = [req.params.id];
     console.log(query, params);
     db.query(query, params)
