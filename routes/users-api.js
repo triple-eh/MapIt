@@ -33,8 +33,14 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  //maps created or modified (i.e., added locations) by the user
   router.get("/:id/maps", (req, res) => {
-    let query = `SELECT * from maps where created_by = $1`;
+    let query = `
+    SELECT DISTINCT maps.* FROM maps
+    JOIN locations on maps.id = locations.map_id
+    WHERE maps.created_by = $1 or locations.created_by = $1
+    `;
     let params = [req.params.id];
     console.log(query, params);
     db.query(query, params)
