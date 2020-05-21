@@ -1,0 +1,18 @@
+<% for (map of maps) { %>
+<article class="row map-row align-items-center map-article">
+  <div class="col-8 map-info">
+    <div class="map-info-top">
+      <p class="map-name"><%= map.name %></p>
+      <p class="map-desc"><%= map.description %></p>
+    </div>
+    <div class="map-info-footer">
+      <p class="map-favs-nums">Favourited: <span><%= map.favs_count %></span></p>
+      <p class="map-created-by">Map created by: <span><%= map.created_by %></span></p>
+      <p class="map-last-edited-by">Map last edited by: <span><%= map.modified_by %></span></p>
+    </div>
+  </div>
+  <div class="col-4 map-preview">
+    <span>This is where the map will be</span>
+  </div>
+</article>
+<% } %>

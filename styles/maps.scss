@@ -1,0 +1,21 @@
+.map-article {
+  height: 200px;
+  border: 2px solid black;
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.map-info, .map-preview {
+  height: 80%;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.map-info-footer {
+  font-size: 0.8em;
+}
