@@ -1,9 +1,23 @@
 // See: https://sass-lang.com/
+html {
+  min-height: 100%;
+  position: relative; //required to absolutely position footer
+}
 
 body {
   background-color: #EEE;
+  margin-bottom: 60px;
+}
 
-  h1 {
-    color: #244751;
-  }
+main.container {
+  min-height:100%;
+  padding-top: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
 }
