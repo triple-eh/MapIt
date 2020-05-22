@@ -8,7 +8,7 @@ const router  = express.Router();
 module.exports = (db) => {
   router.get("/", (req, res) => {
     let query = `
-    SELECT m.*, COUNT(*) as favs_count
+    SELECT m.*, COUNT(f.id) as favs_count
     FROM (
       SELECT 
         maps.id,
@@ -32,7 +32,7 @@ module.exports = (db) => {
       ON loc.map_id = locmax.map_id and loc.created_at = locmax.created_at
       RIGHT JOIN maps ON loc.map_id = maps.id
       ) m
-    JOIN favourites f ON m.id = f.map_id
+    LEFT JOIN favourites f ON m.id = f.map_id
     GROUP BY 1, 2, 3, 4, 5, 6
     ORDER BY m.id;
     `;
