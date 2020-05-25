@@ -49,6 +49,9 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+  router.get("/new", (req, res) => {
+    res.render("new-map");
+  });
 //   router.get("/:id", (req, res) => {
 //     let query = `SELECT * from maps WHERE id=$1`;
 //     let params = [req.params.id];
