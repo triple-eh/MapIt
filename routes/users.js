@@ -53,7 +53,7 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-  router.get("/:id/login", (req, res, next) => {
+  router.get("/:id/login", (req, res) => {
     let userId = req.params.id;
     db.query(`SELECT id FROM users WHERE id = $1`,[userId])
       .then(data => {
@@ -73,6 +73,10 @@ module.exports = (db) => {
           .status(500)
           .json({error: err.message});
       });
+  });
+  router.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/maps");
   });
   return router;
 };
