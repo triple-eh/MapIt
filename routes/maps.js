@@ -50,9 +50,11 @@ module.exports = (db) => {
       });
   });
   router.get("/new", (req, res) => {
+    if (!req.session.userId) return res.send('Only logged in users can create maps');
     res.render("new-map");
   });
   router.post("/", (req, res) => {
+    if (!req.session.userId) return res.send('Only logged in users can create maps');
     req.body.userId = "1";
     const { mapName, mapDesc, userId } = req.body;
     let query = `
