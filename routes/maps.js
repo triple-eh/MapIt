@@ -52,35 +52,28 @@ module.exports = (db) => {
   router.get("/new", (req, res) => {
     res.render("new-map");
   });
-//   router.get("/:id", (req, res) => {
-//     let query = `SELECT * from maps WHERE id=$1`;
-//     let params = [req.params.id];
-//     console.log(query, params);
-//     db.query(query, params)
-//       .then(data => {
-//         const map = data.rows[0];
-//         res.json(map);
-//       })
-//       .catch(err => {
-//         res
-//           .status(500)
-//           .json({ error: err.message });
-//       });
-//   });
-//   router.get("/:id/locations", (req, res) => {
-//     let query = `SELECT * from locations where map_id = $1`;
-//     let params = [req.params.id];
-//     console.log(query, params);
-//     db.query(query, params)
-//       .then(data => {
-//         const locations = data.rows;
-//         res.json({ locations });
-//       })
-//       .catch(err => {
-//         res
-//           .status(500)
-//           .json({ error: err.message });
-//       });
-//   });
+  router.post("/", (req, res) => {
+    req.body.userId = "1";
+    const { mapName, mapDesc, userId } = req.body;
+    let query = `
+    INSERT INTO maps
+    (name, description, created_by)
+    VALUES
+    ($1, $2, $3)
+    RETURNING *;
+    `;
+    let params = [mapName, mapDesc, parseInt(userId)];
+    console.log(query, params);
+    db.query(query,[mapName, mapDesc, parseInt(userId)])
+      .then(data => {
+        console.log("Added into maps:", data.rows[0]);
+        res.redirect("/maps");
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
   return router;
 };

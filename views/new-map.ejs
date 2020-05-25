@@ -15,14 +15,14 @@
       <section class="maps-section">
         <article class="container" id="new-map">
           <h2>Create a new map</h2>
-          <form>
+          <form id="new-map-form" method="POST" action="/maps">
             <div class="form-group">
               <label for="new-map-name">Map name</label>
-              <input type="text" class="form-control" id="new-map-name" placeholder="Enter a name for your map">
+              <input type="text" class="form-control" name="mapName" id="new-map-name" placeholder="Enter a name for your map">
             </div>
             <div class="form-group">
               <label for="new-map-desc">What's this map about?</label>
-              <textarea id="new-map-desc" class="form-control" rows="3"></textarea>
+              <textarea id="new-map-desc" name="mapDesc" class="form-control" rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
