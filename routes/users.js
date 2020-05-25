@@ -53,5 +53,26 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+  router.get("/:id/login", (req, res, next) => {
+    let userId = req.params.id;
+    db.query(`SELECT id FROM users WHERE id = $1`,[userId])
+      .then(data => {
+        console.log('Data rows is', data.rows);
+        if (data.rows.length === 0) {
+          res
+            .status(404)
+            .send(`User with id ${userId} doesn't exist`);
+        } else {
+          req.session.userId = userId;
+          console.log('Session userId is', req.session.userId);
+          res.redirect('/maps');
+        }
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({error: err.message});
+      });
+  });
   return router;
 };
