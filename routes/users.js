@@ -7,6 +7,7 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.get("/:id/maps", (req, res) => {
+    let apiKey = process.env.API_KEY;
     let id = parseInt(req.params.id);
     let query = `
     SELECT DISTINCT m.*, COUNT(*) as favs_count
@@ -44,7 +45,7 @@ module.exports = (db) => {
       .then(data => {
         const maps = data.rows;
         console.log('Maps are', maps);
-        res.render("index",{ maps });
+        res.render("index",{ maps, apiKey });
         // res.json(maps);
       })
       .catch(err => {

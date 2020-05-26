@@ -7,6 +7,7 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
+    let apiKey = process.env.API_KEY;
     let query = `
     SELECT m.*, COUNT(f.id) as favs_count
     FROM (
@@ -40,7 +41,7 @@ module.exports = (db) => {
     db.query(query)
       .then(data => {
         const maps = data.rows;
-        res.render("index",{ maps });
+        res.render("index",{ maps, apiKey });
         // res.json(maps);
       })
       .catch(err => {
