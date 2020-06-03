@@ -78,5 +78,28 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+  router.get('/:id', (req, res) => {
+    let query = `
+    SELECT
+      maps.name as map_name, maps.description as map_desc, maps.created_by as map_by,
+      locations.title as loc_title, locations.lat as lat, locations.lng as lng, locations.description as loc_desc,
+      COUNT(favourites.id) as faves_count
+    FROM maps
+    LEFT JOIN locations ON maps.id = locations.map_id
+    LEFT JOIN favourites on maps.id = favourites.map_id
+    WHERE maps.id = $1
+    GROUP by 1, 2, 3, 4, 5, 6, 7
+    `;
+    console.log(query, req.params.id);
+    db.query(query,[parseInt(req.params.id)])
+      .then(data => {
+        res.json(data.rows);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
   return router;
 };
