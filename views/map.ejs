@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="/vendor/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/maps.css" type="text/css" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+  </head>
+
+  <body>
+    <% include ./partials/navbar %>
+    <main class="container">
+      <section class="maps-section">
+        <% include ./maps %>
+      </section>
+    </main>
+    <% include ./partials/footer %>
+
+    <script type="text/javascript" src="/vendor/jquery-3.5.1.js"></script>
+    <!-- <script type="text/javascript" src="/vendor/popper.js"></script> -->
+    <script type="text/javascript" src="/vendor/bootstrap.bundle.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </body>
+</html>
