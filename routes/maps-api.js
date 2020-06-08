@@ -36,13 +36,13 @@ module.exports = (db) => {
       });
   });
   router.get("/:id/locations", (req, res) => {
-    let query = `SELECT * from locations where map_id = $1`;
+    let query = `SELECT * from locations where map_id = $1 ORDER BY id`;
     let params = [req.params.id];
     console.log(query, params);
     db.query(query, params)
       .then(data => {
         const locations = data.rows;
-        res.json({ locations });
+        res.json(locations);
       })
       .catch(err => {
         res
