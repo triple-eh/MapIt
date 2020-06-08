@@ -12,8 +12,29 @@
   <body>
     <% include ./partials/navbar %>
     <main class="container">
-      <section class="maps-section">
-        <% include ./maps %>
+      <section class="row map-details">
+        <div class="col-12 map-details-info">
+          <div class="row">
+            <div class="col-3">
+              <p class="map-name"><%= map.map_name %></p>
+              <% if (map.is_fav == 1) { %>
+                <button type="button" class="btn btn-danger">Remove from favourites</button>
+              <% } else { %>
+                <button type="button" class="btn btn-primary">Add to favourites</button> 
+              <% } %>
+            </div>
+            <div class="col-6"> 
+              <p class="map-desc"><%= map.map_desc %></p>
+            </div>
+            <div class="col-3">
+              <p class="map-favs-nums">Favourited: <span><%= map.favs_count %></span></p>
+              <p class="map-created-by">Map created by: <span><%= map.created_by %></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 map-details-map map-preview">
+          <p> this is where the map will be</p>
+        </div>
       </section>
     </main>
     <% include ./partials/footer %>
