@@ -83,7 +83,7 @@ module.exports = (db) => {
     let userId = req.session.userId;
     let query = `
     SELECT
-      maps.name as map_name, maps.description as map_desc, maps.created_by as created_by,
+      maps.id as map_id, maps.name as map_name, maps.description as map_desc, maps.created_by as created_by,
       locations.title as loc_title, locations.lat as lat, locations.lng as lng, locations.description as loc_desc,
       (SELECT COUNT(*) FROM favourites WHERE map_id = maps.id and user_id = $2) as is_fav,
       COUNT(favourites.id) as favs_count
@@ -91,7 +91,7 @@ module.exports = (db) => {
     LEFT JOIN locations ON maps.id = locations.map_id
     LEFT JOIN favourites on maps.id = favourites.map_id
     WHERE maps.id = $1
-    GROUP by 1, 2, 3, 4, 5, 6, 7, 8
+    GROUP by 1, 2, 3, 4, 5, 6, 7, 8, 9
     `;
     console.log(query, [req.params.id, userId]);
     db.query(query,[parseInt(req.params.id),userId])
