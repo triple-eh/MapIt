@@ -1,4 +1,4 @@
-INSERT INTO locations (title, image_url, map_id, created_by) VALUES ('Location 1','/public/assets/images/sample-location.png',1,1);
+INSERT INTO locations (title, image_url, map_id, lat, lng, created_by) VALUES ('Stanley Park','/public/assets/images/sample-location.png',1,49.3042619,-123.1464462,1);
 INSERT INTO locations (title, image_url, map_id, created_by) VALUES ('Location 2','/public/assets/images/sample-location.png',1,2);
 INSERT INTO locations (title, image_url, map_id, created_by) VALUES ('Location 3','/public/assets/images/sample-location.png',2,3);
 INSERT INTO locations (title, image_url, map_id, created_by) VALUES ('Location 4','/public/assets/images/sample-location.png',2,4);

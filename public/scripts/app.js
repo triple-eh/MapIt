@@ -19,8 +19,29 @@ $(() => {
         center: {lat, lng},
         zoom: 8
       });
+
+      if (locations.length > 0) {
+        locations.forEach(location => {
+          let latLng = new google.maps.LatLng(location.lat, location.lng);
+          let marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+            title: location.title
+          });
+          marker.addListener("click", function() {
+            if (marker.getAnimation() !== null) {
+              marker.setAnimation(null);
+            } else {
+              marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+          });
+        });
+      }
+      
     });
   };
+
+  
   const loadMaps = function() {
     for (let mapDiv of $('.map-preview')) {
       initMap(mapDiv);
