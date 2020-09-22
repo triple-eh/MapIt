@@ -37,7 +37,24 @@ $(() => {
           });
         });
       }
+
+      let mapFormContent = 
+      "<div class='container' id='map-form'>" +
+      "<p>Some text here</p>" +
+      "</div>";
       
+      let mapFormWindow = new google.maps.InfoWindow({
+        content: mapFormContent
+      });
+      
+      map.addListener('rightclick', (e) => {
+        let marker = new google.maps.Marker({
+          position: e.latLng,
+          map: map
+        });
+        mapFormWindow.open(map, marker);
+      });
+
     });
   };
 
