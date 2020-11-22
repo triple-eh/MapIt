@@ -46,6 +46,7 @@ const locationsApiRoutes = require("./routes/locations-api");
 // User routes
 const mapsRoutes = require("./routes/maps");
 const usersRoutes = require("./routes/users");
+const locationsRoutes = require("./routes/locations");
 
 // Mount all resource routes
 app.use("/api/users", usersApiRoutes(db));
@@ -53,6 +54,7 @@ app.use("/api/maps", mapsApiRoutes(db));
 app.use("/api/locations", locationsApiRoutes(db));
 app.use("/maps", mapsRoutes(db));
 app.use("/users", usersRoutes(db));
+app.use("/locations", locationsRoutes(db));
 
 // Home page
 // Warning: avoid creating more routes in this file!
