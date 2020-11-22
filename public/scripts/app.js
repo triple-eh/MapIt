@@ -40,19 +40,40 @@ $(() => {
 
       let mapFormContent = 
       "<div class='container' id='map-form'>" +
-      "<p>Some text here</p>" +
+      "<form>" +
+      "<div class=\"form-group\">" +
+        "<label for=\"newLocationTitle\">Enter Location Title</label>" +
+        "<input type='text' class=\"form-control\" id=\"newLocationTitle\" placeholder=\"Enter title\">" +
+      "</div>" +
+      "<div class=\"form-group\">" +
+        "<label for=\"newLocationUrl\">Enter image url</label>" +
+        "<input type='text' class=\"form-control\" id=\"newLocationUrl\" placeholder=\"Enter url\">" +
+      "</div>" +
+      "<div class=\"form-group\">" +
+        "<label for=\"newLocationDesc\">Describe this location</label>" +
+        "<textarea type='text' class=\"form-control\" id=\"newLocationDesc\" placeholder=\"Describe this\"></textarea>" +
+      "</div>" +    
+      "<button type=\"sumbit\" class=\"btn btn-primary\">Submit</button>"+
+      "</form>" +
       "</div>";
       
       let mapFormWindow = new google.maps.InfoWindow({
-        content: mapFormContent
+        content: mapFormContent,
       });
       
+      let newMarker;
       map.addListener('rightclick', (e) => {
-        let marker = new google.maps.Marker({
+        if (newMarker) {
+          console.log('remove marker')
+          newMarker.setMap(null);
+        }
+        newMarker = new google.maps.Marker({
           position: e.latLng,
           map: map
         });
-        mapFormWindow.open(map, marker);
+        console.log('added marker');
+        mapFormWindow.open(map, newMarker);
+        console.log('done');
       });
 
     });
