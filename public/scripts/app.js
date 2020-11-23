@@ -47,7 +47,6 @@ $(() => {
           position: e.latLng,
           map: map
         });
-        console.log(e);
         let mapFormContent = 
         "<div class='container' id='map-form'>" +
         "<form id=\"new-location-form\" method=\"POST\" action=\"/locations\">" +
