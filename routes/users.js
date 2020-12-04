@@ -79,5 +79,50 @@ module.exports = (db) => {
     req.session = null;
     res.redirect("/maps");
   });
+  router.put("/:userid/favourites/:mapid", (req, res) => {
+    if (!req.session.userId) return res.send('Only logged in users can work with favourites');
+    let userId = req.session.userId;
+    let mapId = req.params.mapid;
+    let query = `
+    INSERT INTO favourites
+    (user_id, map_id)
+    VALUES
+    ($1, $2)
+    RETURNING *;
+    `;
+    console.log(query, userId, mapId);
+    db.query(query,[userId, mapId])
+    .then(data => {
+      console.log("Added into favourites: ", data.rows[0]);
+      res.redirect(req.headers.referer);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err});
+    });    
+  })
+  router.delete("/:userid/favourites/:mapid", (req, res) => {
+    if (!req.session.userId) return res.send('Only logged in users can work with favourites');
+    let userId = req.params.userid;
+    let mapId = req.params.mapid;
+    let query = `
+    DELETE from
+    favourites
+    WHERE user_id = $1 and map_id = $2
+    RETURNING *;
+    `;
+    console.log(query, userId, mapId);
+    db.query(query, [userId, mapId])
+    .then(data => {
+      console.log("Deleted the following", data.rows);
+      res.redirect(req.headers.referer);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  })
   return router;
 };

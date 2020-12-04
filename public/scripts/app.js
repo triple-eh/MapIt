@@ -37,7 +37,42 @@ $(() => {
           });
         });
       }
-      
+  
+      let newMarker;
+      map.addListener('rightclick', (e) => {
+        if (newMarker) {
+          newMarker.setMap(null);
+        }
+        newMarker = new google.maps.Marker({
+          position: e.latLng,
+          map: map
+        });
+        let mapFormContent = 
+        "<div class='container' id='map-form'>" +
+        "<form id=\"new-location-form\" method=\"POST\" action=\"/locations\">" +
+        "<div class=\"form-group\">" +
+          "<label for=\"location-title\">Enter Location Title</label>" +
+          "<input type='text' class=\"form-control\" id=\"location-title\" name=\"locationTitle\" placeholder=\"Enter title\">" +
+        "</div>" +
+        "<div class=\"form-group\">" +
+          "<label for=\"location-url\">Enter image url</label>" +
+          "<input type='text' class=\"form-control\" id=\"location-url\" name=\"locationUrl\" placeholder=\"Enter url\">" +
+        "</div>" +
+        "<div class=\"form-group\">" +
+          "<label for=\"location-desc\">Describe this location</label>" +
+          "<textarea type='text' class=\"form-control\" id=\"location-desc\" name=\"locationDesc\" placeholder=\"Describe this\"></textarea>" +
+        "</div>" +  
+        `<input type=\"hidden\" name=\"lat\" value=\"${e.latLng.lat()}\">`+ 
+        `<input type=\"hidden\" name=\"lng\" value=\"${e.latLng.lng()}\">`+   
+        "<button type=\"submit\" class=\"btn btn-primary\">Submit</button>"+
+        "</form>" +
+        "</div>";
+        let mapFormWindow = new google.maps.InfoWindow({
+          content: mapFormContent,
+        });
+        mapFormWindow.open(map, newMarker);
+      });
+
     });
   };
 

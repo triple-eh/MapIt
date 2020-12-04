@@ -10,6 +10,7 @@ const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
 const cookieSession    = require('cookie-session');
+const methodOverride = require('method-override');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -37,6 +38,7 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000 //24 hours
   })
 );
+app.use(methodOverride('_method'));
 
 // Separated Routes for each Resource
 // API routes
@@ -46,6 +48,7 @@ const locationsApiRoutes = require("./routes/locations-api");
 // User routes
 const mapsRoutes = require("./routes/maps");
 const usersRoutes = require("./routes/users");
+const locationsRoutes = require("./routes/locations");
 
 // Mount all resource routes
 app.use("/api/users", usersApiRoutes(db));
@@ -53,6 +56,7 @@ app.use("/api/maps", mapsApiRoutes(db));
 app.use("/api/locations", locationsApiRoutes(db));
 app.use("/maps", mapsRoutes(db));
 app.use("/users", usersRoutes(db));
+app.use("/locations", locationsRoutes(db));
 
 // Home page
 // Warning: avoid creating more routes in this file!
