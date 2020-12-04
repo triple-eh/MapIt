@@ -98,7 +98,7 @@ module.exports = (db) => {
       .then(data => {
         const apiKey = process.env.API_KEY;
         const map = data.rows[0];
-        res.render("map", { map, apiKey });
+        res.render("map", { map, apiKey, userId });
       })
       .catch(err => {
         res

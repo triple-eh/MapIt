@@ -10,6 +10,7 @@ const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
 const cookieSession    = require('cookie-session');
+const methodOverride = require('method-override');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -37,6 +38,7 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000 //24 hours
   })
 );
+app.use(methodOverride('_method'));
 
 // Separated Routes for each Resource
 // API routes
