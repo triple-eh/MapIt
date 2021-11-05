@@ -1,5 +1,9 @@
-LHL Node Skeleton
+MapIt
 =========
+## About this project
+1. Map it is a simple ExpressJS app that allows you to create maps with select locations
+2. It was created to put into practice some basic knowledge of working with NodeJS and Google Maps API
+3. Note, I started building this app before I started my formal CS degree - so there's plenty of best-practice refactoring I'm planning to apply going forward.
 
 ## Project Setup
 
