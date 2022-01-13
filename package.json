@@ -9,7 +9,7 @@
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
     "db:reset": "node bin/resetdb.js"
   },
-  "author": "Lighthouse Labs",
+  "author": "triple-eh",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -21,7 +21,7 @@
     "express": "^4.17.1",
     "method-override": "^3.0.0",
     "morgan": "^1.9.1",
-    "pg": "8.2.0",
+    "pg": "^8.2.0",
     "pg-native": "^3.0.0",
     "sass": "^1.46.0"
   },
