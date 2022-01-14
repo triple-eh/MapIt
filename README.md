@@ -27,7 +27,7 @@ MapIt
 4. Install dependencies: `npm i`
 5. Reset database: `npm run db:reset`
   - Check the db folder to see what gets created and seeded in the SDB
-6. Run the server: `npm start`
+6. Run the server: `npm run local`
   - Note: nodemon is used, so you should not have to restart your server
 7. Visit `http://localhost:8080/`
 
