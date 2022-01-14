@@ -1,0 +1,16 @@
+<script type="text/javascript" src="/vendor/jquery-3.5.1.js"></script>
+<!-- <script type="text/javascript" src="/vendor/popper.js"></script> -->
+<script type="text/javascript" src="/vendor/bootstrap.bundle.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>"></script>
+<script type="text/javascript" src="/scripts/app.js"></script>
+<script>
+  $(function(){
+      $('a').each(function(){
+          console.log("windows.location.href: " + window.location.href);
+          if ($(this).prop('href') == window.location.href) {
+              $(this).addClass('active'); 
+              $(this).parents('li').addClass('active');
+          }
+      });
+  });
+</script>

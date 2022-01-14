@@ -4,10 +4,10 @@
 
 const express = require('express');
 const router  = express.Router();
+const apiKey = process.env.API_KEY;
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    let apiKey = process.env.API_KEY;
     let query = `
     SELECT m.*, COUNT(f.id) as favs_count
     FROM (
@@ -41,6 +41,7 @@ module.exports = (db) => {
     db.query(query)
       .then(data => {
         const maps = data.rows;
+
         res.render("index",{ maps, apiKey });
         // res.json(maps);
       })
@@ -52,7 +53,7 @@ module.exports = (db) => {
   });
   router.get("/new", (req, res) => {
     if (!req.session.userId) return res.send('Only logged in users can create maps');
-    res.render("new-map");
+    res.render("new-map", { apiKey });
   });
   router.post("/", (req, res) => {
     if (!req.session.userId) return res.send('Only logged in users can create maps');
