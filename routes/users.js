@@ -4,10 +4,10 @@
 
 const express = require('express');
 const router  = express.Router();
+const apiKey = process.env.API_KEY;
 
 module.exports = (db) => {
   router.get("/:id/maps", (req, res) => {
-    let apiKey = process.env.API_KEY;
     let id = parseInt(req.params.id);
     let query = `
     SELECT DISTINCT m.*, COUNT(*) as favs_count
@@ -47,6 +47,26 @@ module.exports = (db) => {
         console.log('Maps are', maps);
         res.render("index",{ maps, apiKey });
         // res.json(maps);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+  router.get("/:id/favourites", (req, res) => {
+    let query = `
+    SELECT maps.* from maps
+    JOIN favourites on favourites.map_id = maps.id
+    JOIN users on favourites.user_id = users.id 
+    WHERE favourites.user_id = $1
+    `;
+    let id = parseInt(req.params.id);
+    db.query(query, [id])
+      .then(data => {
+        const maps = data.rows;
+        console.log('Favourites are', maps);
+        res.render("index", {maps, apiKey});
       })
       .catch(err => {
         res
@@ -101,7 +121,7 @@ module.exports = (db) => {
         .status(500)
         .json({ error: err});
     });    
-  })
+  });
   router.delete("/:userid/favourites/:mapid", (req, res) => {
     if (!req.session.userId) return res.send('Only logged in users can work with favourites');
     let userId = req.params.userid;
