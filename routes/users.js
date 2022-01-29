@@ -7,8 +7,8 @@ const router  = express.Router();
 const apiKey = process.env.API_KEY;
 
 module.exports = (db) => {
-  router.get("/:id/maps", (req, res) => {
-    let id = parseInt(req.params.id);
+  router.get("/maps", (req, res) => {
+    let id = req.session.userId;
     let query = `
     SELECT DISTINCT m.*, COUNT(*) as favs_count
     FROM (
@@ -54,14 +54,14 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-  router.get("/:id/favourites", (req, res) => {
+  router.get("/favourites", (req, res) => {
     let query = `
     SELECT maps.* from maps
     JOIN favourites on favourites.map_id = maps.id
     JOIN users on favourites.user_id = users.id 
     WHERE favourites.user_id = $1
     `;
-    let id = parseInt(req.params.id);
+    let id = req.session.userId;
     db.query(query, [id])
       .then(data => {
         const maps = data.rows;

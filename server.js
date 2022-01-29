@@ -11,6 +11,8 @@ const app        = express();
 const morgan     = require('morgan');
 const cookieSession    = require('cookie-session');
 const methodOverride = require('method-override');
+const passUserId = require('./lib/custom-middleware').passUserId;
+const isLoggedIn = require('./lib/custom-middleware').isLoggedIn;
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -38,6 +40,7 @@ app.use(cookieSession({
   })
 );
 app.use(methodOverride('_method'));
+app.use(passUserId);
 
 // Separated Routes for each Resource
 // API routes

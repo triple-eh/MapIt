@@ -3,6 +3,7 @@
  */
 
 const express = require('express');
+const { isLoggedIn } = require('../lib/custom-middleware');
 const router  = express.Router();
 const apiKey = process.env.API_KEY;
 
@@ -41,8 +42,8 @@ module.exports = (db) => {
     db.query(query)
       .then(data => {
         const maps = data.rows;
-
-        res.render("index",{ maps, apiKey });
+        const userId = req.session.userId;
+        res.render("index",{ maps, apiKey, userId });
         // res.json(maps);
       })
       .catch(err => {
@@ -51,12 +52,10 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-  router.get("/new", (req, res) => {
-    if (!req.session.userId) return res.send('Only logged in users can create maps');
+  router.get("/new", isLoggedIn, (req, res) => {
     res.render("new-map", { apiKey });
   });
-  router.post("/", (req, res) => {
-    if (!req.session.userId) return res.send('Only logged in users can create maps');
+  router.post("/", isLoggedIn, (req, res) => {
     req.body.userId = "1";
     const { mapName, mapDesc, userId } = req.body;
     let query = `
@@ -79,8 +78,7 @@ module.exports = (db) => {
         .json({ error: err.message });
       });
     });
-  router.get('/:id', (req, res) => {
-    if (!req.session.userId) return res.send('Only logged in users can create maps');
+  router.get('/:id', isLoggedIn, (req, res) => {
     let userId = req.session.userId;
     let query = `
     SELECT
