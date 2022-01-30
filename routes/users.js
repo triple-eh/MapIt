@@ -4,13 +4,14 @@
 
 const express = require('express');
 const router  = express.Router();
+const { appendFavByStr } = require('../lib/helpers');
 const apiKey = process.env.API_KEY;
 
 module.exports = (db) => {
   router.get("/maps", (req, res) => {
     let id = req.session.userId;
     let query = `
-    SELECT DISTINCT m.*, COUNT(*) as favs_count
+    SELECT DISTINCT m.*, u1.name as user_name, u2.name as user_name_modified, COUNT(*) as favs_count
     FROM (
       SELECT 
         maps.id,
@@ -36,14 +37,16 @@ module.exports = (db) => {
       ) m
     LEFT JOIN favourites f ON m.id = f.map_id
     LEFT JOIN locations l on m.id = l.map_id
+    LEFT JOIN users u1 ON m.created_by = u1.id
+    LEFT JOIn users u2 ON m.modified_by = u2.id
     WHERE m.created_by = $1 or l.created_by = $1
-    GROUP BY 1, 2, 3, 4, 5, 6
+    GROUP BY 1, 2, 3, 4, 5, 6, 7, 8
     ORDER BY m.id;
     `;
     console.log(query,id);
     db.query(query,[id])
       .then(data => {
-        const maps = data.rows;
+        const maps = data.rows.map(map => appendFavByStr(map));
         console.log('Maps are', maps);
         res.render("index",{ maps, apiKey });
         // res.json(maps);
@@ -56,15 +59,30 @@ module.exports = (db) => {
   });
   router.get("/favourites", (req, res) => {
     let query = `
-    SELECT maps.* from maps
+    SELECT maps.*, 
+      u1.name as user_name, 
+      CASE WHEN u2.name IS NULL THEN u1.name ELSE u2.name END as user_name_modified,
+      favs_count.favs_count 
+    FROM maps
     JOIN favourites on favourites.map_id = maps.id
-    JOIN users on favourites.user_id = users.id 
+    JOIN users on favourites.user_id = users.id
+    JOIN 
+    (SELECT 
+      map_id, 
+      COUNT(*) as favs_count 
+      FROM favourites
+      GROUP BY 1
+    ) favs_count on favs_count.map_id = maps.id
+    LEFT JOIN
+    (SELECT map_id, created_by FROM locations ORDER BY created_at DESC LIMIT 1) mod on mod.map_id = maps.id
+    LEFT JOIN users u1 ON maps.created_by = u1.id
+    LEFT JOIN users u2 ON mod.created_by = u2.id
     WHERE favourites.user_id = $1
     `;
     let id = req.session.userId;
     db.query(query, [id])
       .then(data => {
-        const maps = data.rows;
+        const maps = data.rows.map(map => appendFavByStr(map));
         console.log('Favourites are', maps);
         res.render("index", {maps, apiKey});
       })
