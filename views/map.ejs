@@ -14,29 +14,35 @@
     <main class="container">
       <section class="row map-details">
         <div class="col-12 map-details-info">
-          <div class="row">
-            <div class="col-3">
-              <p class="map-name"><%= map.map_name %></p>
+          <div class="row map-details-header">
+            <div class="col-10">
+              <span class="map-name-full"><%= map.map_name %></span>
+            </div>
+            <div class="col-2 fave-button-div">
               <% if (map.is_fav == 1) { %>
                 <form method="POST" action="/users/<%= userId %>/favourites/<%= map.map_id %>?_method=DELETE">
-                 <button type="submit" class="btn btn-danger" id="remove-favorite">Remove from favourites</button>
+                  <button type="submit" class="btn btn-fave btn-danger" id="remove-favorite">Remove from faves</button>
                 </form>
               <% } else { %>
                 <form method="POST" action="/users/<%= userId %>/favourites/<%= map.map_id %>?_method=PUT">
-                  <button type="submit" class="btn btn-primary" id="add-favorite">Add to favourites</button> 
-                 </form>
+                  <button type="submit" class="btn btn-fave btn-primary" id="add-favorite">Add to faves</button> 
+                  </form>
               <% } %>
             </div>
-            <div class="col-6"> 
+            </div>
+            <div class="row">
+            <div class="col-10"> 
               <p class="map-desc"><%= map.map_desc %></p>
             </div>
-            <div class="col-3">
-              <p class="map-favs-nums">Favourited by <span><%= map.favBy %></span></p>
-              <p class="map-created-by">Map created by: <span><%= map.created_by %></span></p>
+            <div class="col-2 map-info-side">
+              <div class="map-favs-nums">Favourited by <span><%= map.favBy %></span></div>
+              <div class="map-created-by">Map created by: <span><%= map.created_by %></span></div>
             </div>
+            </div> 
           </div>
         </div>
-        <div class="col-12 map-details-map map-preview" data-map-id="<%= map.map_id %>">
+        <div class="col-12 map-details-container">
+          <div class="col-12 map-details-map map-preview" data-map-id="<%= map.map_id %>"></div>
         </div>
       </section>
     </main>
