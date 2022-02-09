@@ -58,8 +58,8 @@ module.exports = (db) => {
     res.render("new-map", { apiKey });
   });
   router.post("/", isLoggedIn, (req, res) => {
-    req.body.userId = "1";
-    const { mapName, mapDesc, userId } = req.body;
+    const userId = req.session.userId;
+    const { mapName, mapDesc} = req.body;
     let query = `
     INSERT INTO maps
     (name, description, created_by)

@@ -9,13 +9,23 @@
         <a class="nav-link" href="/users/maps">My Maps</a>
       </li>
       <% if (userId) { %>
-      <li class="nav-item">
-        <a class="nav-link" href="/users/favourites">My Faves</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/maps/new">Add Map</a>
-      </li>
-      <% } %>
-    </ul>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/favourites">My Faves</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/maps/new">Add Map</a>
+        </li>
+      </ul>
+      <span class="navbar-text welcome-message">Hello, <%= userName %></span> 
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item nav-auth"><a class="nav-link auth" id="logout" href="/users/logout">Sign Out</a></li>
+      </ul>
+        <% } else { %>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+          <li class="nav-item nav-auth"><a class="nav-link auth" id="login" href="/users/login">Sign in</a></li>
+        </ul>
+        <% } %>
+      </ul>
   </div>
 </nav>

@@ -1,0 +1,8 @@
+<select class="custom-select" aria-label="User selection" name="userId">
+  <option selected>Select user name</option>
+  <% for (user of users) { %>
+    <option value="<%= user.id%>">
+      <%= user.name %>
+    </option>
+  <% } %>
+</select>

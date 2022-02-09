@@ -21,3 +21,28 @@ main.container {
   height: 60px;
   line-height: 60px;
 }
+
+.fave-button-div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-fave {
+  font-size: 0.8em;
+  padding: 0.15rem;
+}
+
+.nav-auth  {
+  background-color: rgb(64, 98, 136);
+  border-radius: 5px;
+}
+
+#logout, #login {
+  color: white;
+}
+
+.welcome-message {
+  margin-right:4px;
+}
+

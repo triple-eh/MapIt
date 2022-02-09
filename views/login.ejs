@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Super secure user login</title>
+
+    <link rel="stylesheet" href="/vendor/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/maps.css" type="text/css" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+  </head>
+
+  <body>
+    <% include ./partials/navbar %>
+    <main class="container">
+      <section class="login-section">
+        <article class="container" id="login-article">
+          <h2>Super Secure User Login</h2>
+          <form id="user-selection-form" method="POST" action="/users">
+            <div class="form-group">
+              <label for="user-name">Pick one of the following usernames, no password required!</label>
+              <% include ./partials/users-dropdown %>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </article>
+      </section>
+    </main>
+    <% include ./partials/footer %>
+  </body>
+</html>

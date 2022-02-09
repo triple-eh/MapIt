@@ -92,9 +92,9 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-  router.get("/:id/login", (req, res) => {
-    let userId = req.params.id;
-    db.query(`SELECT id FROM users WHERE id = $1`,[userId])
+  router.post("/", (req, res) => {
+    let userId = req.body.userId;
+    db.query(`SELECT id, name FROM users WHERE id = $1`,[userId])
       .then(data => {
         console.log('Data rows is', data.rows);
         if (data.rows.length === 0) {
@@ -103,9 +103,24 @@ module.exports = (db) => {
             .send(`User with id ${userId} doesn't exist`);
         } else {
           req.session.userId = userId;
+          req.session.userName = data.rows[0].name;
           console.log('Session userId is', req.session.userId);
           res.redirect('/maps');
         }
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({error: err.message});
+      });
+  });
+  router.get("/login", (req, res) => {
+    const query = 'SELECT id, name FROM users';
+    db.query(query)
+      .then(data => {
+        const users = data.rows;
+        console.log('User info is', users);
+        res.render("login",{users});
       })
       .catch(err => {
         res
