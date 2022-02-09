@@ -37,7 +37,7 @@ MapIt
 - Use the `npm run db:reset` command each time there is a change to the database schema or seeds. 
   - It runs through each of the files, in order, and executes them against the database. 
   - Note: you will lose all newly created (test) data each time this is run, since the schema files will tend to `DROP` the tables and recreate them.
-- Authentication is not fully implemented yet. To login, follow `/users/:id/login` route, e.g., `/users/1/login`
+- Authentication is not secure, it's aim is to demonstrate the "social" features of the program so security isn't developed
 
 ## Dependencies
 
